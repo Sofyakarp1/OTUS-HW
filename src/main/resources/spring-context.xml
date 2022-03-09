@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns="http://www.springframework.org/schema/beans"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="exerciseDao" class="group_2022_02.ru.otus.homework.dao.ExerciseDaoImpl">
+        <property name="nameFile" value="C:/Users/sofya/IdeaProjects/OTUS-HW/src/main/resources/Exam.cvs"/>
+    </bean>
+
+    <bean id="testService" class="group_2022_02.ru.otus.homework.service.TestServiceImpl">
+        <constructor-arg ref="exerciseDao"/>
+    </bean>
+
+</beans>
