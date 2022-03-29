@@ -2,11 +2,22 @@ package group_2022_02.ru.otus.homework.service;
 
 import group_2022_02.ru.otus.homework.dao.ExerciseDao;
 import group_2022_02.ru.otus.homework.domain.Exercise;
-
+import group_2022_02.ru.otus.homework.domain.Scores;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Scanner;
 
+@PropertySource("classpath:application.properties")
+@Service
 public class TestServiceImpl implements TestService {
+
+    @Value("${score.excellent}")
+    private String ScoreExcellent;
+
+    @Value("${score.good}")
+    private String ScoreGood;
 
     public ExerciseDao exercise;
 
@@ -28,5 +39,16 @@ public class TestServiceImpl implements TestService {
             }
         }
         System.out.print("Number of correct answers:" + count);
+        System.out.println("\nYour score is " + getScore(count).toString());
+    }
+
+    public Scores.ScoresStatus getScore(int count){
+        if (Integer.parseInt(ScoreExcellent) == count || count > Integer.parseInt(ScoreGood)){
+            return Scores.ScoresStatus.EXCELLENT;
+        }
+        else if (count == Integer.parseInt(ScoreGood)){
+            return Scores.ScoresStatus.GOOD;
+        }
+        else return Scores.ScoresStatus.SATISFACTORY;
     }
 }
