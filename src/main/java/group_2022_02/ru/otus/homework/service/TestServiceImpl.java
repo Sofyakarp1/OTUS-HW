@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Scanner;
 
-@PropertySource("classpath:application.properties")
+@PropertySource("classpath:application.yml")
 @Service
 public class TestServiceImpl implements TestService {
 
@@ -33,7 +33,7 @@ public class TestServiceImpl implements TestService {
         for (int i = 0; i < exercises.size(); i++) {
             int number = i + 1;
             System.out.print(String.format("Question number %d: %s\n", number, exercises.get(i).question));
-            String answer = in.next();
+            var answer = in.next();
             if (answer.equals(exercises.get(i).answer)) {
                 count++;
             }
