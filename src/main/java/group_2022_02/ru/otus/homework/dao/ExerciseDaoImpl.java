@@ -13,6 +13,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.ResourceBundle;
 
 @PropertySource("classpath:application.yml")
 @Service
@@ -40,6 +41,20 @@ public class ExerciseDaoImpl implements ExerciseDao {
         }
         return exercises;
     }
+
+    @Override
+    public List<String> getQuestions() {
+        List<String> exercises = new ArrayList<String>();
+        var messages = ResourceBundle.getBundle("lable");
+        for (int i =0; i<5; i++){
+            int k = i+1;
+            exercises.add(messages.getString("question." + k));
+        }
+        //var messages = ResourceBundle.getBundle("lable");
+        System.out.println(exercises.toString());
+        return null;
+    }
+
 
     public void setNameFile(String nameFile) {
         this.nameFile = nameFile;

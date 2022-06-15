@@ -1,4 +1,4 @@
-package group_2022_02.ru.otus.homework.logging;
+package group_2022_02.ru.otus.homework.loggin;
 
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.Aspect;
