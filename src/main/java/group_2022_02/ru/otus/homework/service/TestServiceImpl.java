@@ -5,11 +5,15 @@ import group_2022_02.ru.otus.homework.domain.Exercise;
 import group_2022_02.ru.otus.homework.domain.Scores;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.shell.standard.ShellComponent;
+import org.springframework.shell.standard.ShellMethod;
 import org.springframework.stereotype.Service;
 import java.util.List;
+import java.util.ResourceBundle;
 import java.util.Scanner;
 
-@PropertySource("classpath:application.properties")
+@ShellComponent
+@PropertySource("classpath:application.yml")
 @Service
 public class TestServiceImpl implements TestService {
 
@@ -21,25 +25,37 @@ public class TestServiceImpl implements TestService {
 
     public ExerciseDao exercise;
 
+    public int result;
+
     public TestServiceImpl(ExerciseDao exercise) {
         this.exercise = exercise;
     }
 
+    @ShellMethod(value = "Starting testing", key = {"s", "start", "restart"})
     public void startTest() {
-        System.out.println("Start of testing\n");
-        Scanner in = new Scanner(System.in);
+        var messages = ResourceBundle.getBundle("lable_en");
+        System.out.println(messages.getString("start.message"));
         List<Exercise> exercises = exercise.getAllExercises();
-        int count = 0;
+        result = 0;
         for (int i = 0; i < exercises.size(); i++) {
             int number = i + 1;
-            System.out.print(String.format("Question number %d: %s\n", number, exercises.get(i).question));
-            String answer = in.next();
-            if (answer.equals(exercises.get(i).answer)) {
-                count++;
+            System.out.print(String.format(messages.getString("guestion.number") + " %d: %s\n", number, exercises.get(i).question));
+            if (getAnswer().equals(exercises.get(i).answer)) {
+                result++;
             }
         }
-        System.out.print("Number of correct answers:" + count);
-        System.out.println("\nYour score is " + getScore(count).toString());
+    }
+
+    public String  getAnswer(){
+        Scanner in = new Scanner(System.in);
+        return in.next();
+    }
+
+    @ShellMethod(value = "Show my result", key = {"r", "result"})
+    public void getResult(){
+        var messages = ResourceBundle.getBundle("lable_en");
+        System.out.println(messages.getString("answers.correct") + result);
+        System.out.println(messages.getString("your.scope") + getScore(result).toString());
     }
 
     public Scores.ScoresStatus getScore(int count){

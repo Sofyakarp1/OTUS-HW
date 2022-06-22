@@ -1,16 +1,22 @@
 package group_2022_02.ru.otus.homework;
 
 import group_2022_02.ru.otus.homework.service.TestService;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.MessageSource;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
 
-@ComponentScan
-@Configuration
+@EnableAspectJAutoProxy
+@SpringBootApplication
 public class Main {
     public static void main(String[] args) {
-        AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(Main.class);
+        ApplicationContext context = SpringApplication.run(Main.class);
+        MessageSource msg = context.getBean(MessageSource.class);
         TestService service = context.getBean(TestService.class);
         service.startTest();
+
+
     }
 }
+

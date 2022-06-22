@@ -6,4 +6,7 @@ import java.util.List;
 
 public interface ExerciseDao {
     List<Exercise> getAllExercises();
+
+    List<String> getQuestions();
 }
+
