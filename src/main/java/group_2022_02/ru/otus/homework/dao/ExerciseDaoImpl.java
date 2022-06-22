@@ -45,7 +45,7 @@ public class ExerciseDaoImpl implements ExerciseDao {
     @Override
     public List<String> getQuestions() {
         List<String> exercises = new ArrayList<String>();
-        var messages = ResourceBundle.getBundle("lable");
+        var messages = ResourceBundle.getBundle("lable_en");
         for (int i =0; i<5; i++){
             int k = i+1;
             exercises.add(messages.getString("question." + k));
